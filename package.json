@@ -1,0 +1,17 @@
+{
+  "name": "case-mgmt",
+  "version": "1.0.0",
+  "description": "A bot for managing COVID-19 cases for r/CovidMapping server.",
+  "main": "main.js",
+  "dependencies": {
+    "discord.js": "^12.0.2",
+    "enmap": "^5.2.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Xeoth <xeoth@xeoth.me> (https://xeoth.me/)",
+  "repository": "https://github.com/Xeoth/case-management-bot",
+  "license": "ISC"
+}
