@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const caseChannelID = '686607582420271201'; // ID of the channel
  
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
   // !case [desc] [link]
  
 
@@ -38,7 +38,6 @@ exports.run = (client, message, args) => {
   } else {
     caseEmbed.addField('Relevant link', link);
   }
-
 
   // at last, remove the content of the message and add the embed
   caseMessage.edit('', { embed: caseEmbed });

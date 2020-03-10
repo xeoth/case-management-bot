@@ -1,5 +1,5 @@
 const caseChannelID = '686607582420271201';
-const archiveChannelID = '12345'
+const archiveChannelID = '687013701995593838';
 
 async function rejectMessage(message, rejectionMessage) {
   const denialMessage = await message.reply(rejectionMessage);
@@ -23,10 +23,14 @@ exports.run = async (client, message, args) => {
   // fetch the message in the embed
   const caseEmbed = caseMessage.embeds[0];
 
-  // change color from orange to green
-  caseEmbed.setColor('#35de35');
+  // make changes to the embed to differentiate it from the active one
+  caseEmbed
+      .setColor('#35de35')
+      .setTitle('Case archived/finished')
+      .setFooter(`Case archived by ${message.author.username}`, message.author.avatarURL());
 
-  // TODO: finish the sending and change the title
   const archiveChannel = await client.channels.fetch(archiveChannelID);
-  archiveChannel
+  archiveChannel.send(caseEmbed);
+
+  
 }
