@@ -19,11 +19,18 @@ exports.run = (client, message, args) => {
   // since MessageEmbed values can't be empty, use a placeholder if the user didn't provide any
   if (!desc) desc = 'No description provided.';
  
+  // send the message to include the ID in the embed
+  // TODO: research whether you can do it after sending
+  const caseChannel = message.guild.channels.cache.get(caseChannelID);
+  const caseMessage = await caseChannel.send('*Loading the embed...*');
+
   // construct the actual embed
   const caseEmbed = new Discord.MessageEmbed()
+      .setAuthor(message.author.username, message.author.avatarURL())
       .setTitle('New case!')
       .addField('Description', desc)
-      .setAuthor(message.author.username, message.author.avatarURL());
+      .setFooter(`The message ID for this case is: ${caseMessage.id}`)
+      .setColor('#ff6f00');
     
   // check whether the link isn't really long. if it is, replace it with a friendly message
   if (link.length > 40) {
@@ -33,8 +40,7 @@ exports.run = (client, message, args) => {
   }
 
 
-  // at last, send the embed
-  const caseChannel = message.guild.channels.cache.get(caseChannelID);
-  caseChannel.send(caseEmbed);
+  // at last, remove the content of the message and add the embed
+  caseMessage.edit('', { embed: caseEmbed });
 
 }
