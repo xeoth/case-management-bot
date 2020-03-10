@@ -1,9 +1,8 @@
 const Discord = require('discord.js');
-const caseChannelID = '686607582420271201'; // ID of the channel
- 
+
+// !case [desc] [link]
 exports.run = async (client, message, args) => {
-  // !case [desc] [link]
- 
+  const caseChannelID = client.config.caseChannelID; // ID of the channel
 
   // define variables provided in the command
   const newArgs = args.join(' ').split('http');

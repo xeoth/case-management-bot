@@ -1,5 +1,3 @@
-const caseChannelID = '686607582420271201';
-const archiveChannelID = '687013701995593838';
 
 async function rejectMessage(message, rejectionMessage) {
   const denialMessage = await message.reply(rejectionMessage);
@@ -7,7 +5,14 @@ async function rejectMessage(message, rejectionMessage) {
   message.delete({ timeout: 5000 });
 }
 
+// !finish [id]
 exports.run = async (client, message, args) => {
+  
+  // checking whether the member has the necessary role
+  if (!message.member.roles.cache.some(r => r.id === client.config.mapperRoleID)) return message.reply('Insufficient permissions.');
+
+  const caseChannelID = client.config.caseChannelID;
+  const archiveChannelID = client.config.archiveChannelID;
   const caseID = args[0];
 
   // reject if message id was not provided
@@ -32,5 +37,6 @@ exports.run = async (client, message, args) => {
   const archiveChannel = await client.channels.fetch(archiveChannelID);
   archiveChannel.send(caseEmbed);
 
-  
+  caseMessage.delete( { timeout: 0 });
+  message.delete( {timeout: 0} );
 }
