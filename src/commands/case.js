@@ -38,6 +38,9 @@ exports.run = async (client, message, args) => {
     caseEmbed.addField('Relevant link', link);
   }
 
+  // detect webhooks
+  if (message.webhookID) caseEmbed.setAuthor(message.webhookID);
+
   // at last, remove the content of the message and add the embed
   caseMessage.edit('', { embed: caseEmbed });
 
