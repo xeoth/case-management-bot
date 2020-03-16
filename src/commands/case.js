@@ -44,4 +44,6 @@ exports.run = async (client, message, args) => {
   // at last, remove the content of the message and add the embed
   caseMessage.edit('', { embed: caseEmbed });
 
+  message.react('✅');
+  message.delete( {timeout: 2000 } );
 }
