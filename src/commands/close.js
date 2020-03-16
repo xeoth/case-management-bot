@@ -5,15 +5,20 @@ async function rejectMessage(message, rejectionMessage) {
   message.delete({ timeout: 5000 });
 }
 
-// !finish [id]
+// !close <id> [comment]
 exports.run = async (client, message, args) => {
-  
+   
   // checking whether the member has the necessary role
   if (!message.member.roles.cache.some(r => r.id === client.config.mapperRoleID)) return message.reply('Insufficient permissions.');
 
   const caseChannelID = client.config.caseChannelID;
   const archiveChannelID = client.config.archiveChannelID;
   const caseID = args[0];
+
+  // remove the first argument (ID)
+  args.shift();
+
+  const comment = args.join(' ');
 
   // reject if message id was not provided
   if (!caseID) return rejectMessage(message, 'Sorry, you didn\'t provide the message ID.');
@@ -37,13 +42,16 @@ exports.run = async (client, message, args) => {
 
   // make changes to the embed to differentiate it from the active one
   caseEmbed
-      .setColor('#35de35')
-      .setTitle('Case archived/finished')
+      .setColor('#ff0000')
+      .setTitle('Case closed')
       .setFooter(`Case archived by ${message.author.username}`, message.author.avatarURL());
 
+
+  if (comment) caseEmbed.addField('Reason for closing', comment);
+  
   const archiveChannel = await client.channels.fetch(archiveChannelID);
   archiveChannel.send(caseEmbed);
 
   caseMessage.delete( { timeout: 0 });
-  message.delete( {timeout: 0} );
+  message.delete( { timeout: 0 } );
 }
