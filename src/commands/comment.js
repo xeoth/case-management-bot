@@ -26,21 +26,13 @@ exports.run = async (client, message, args) => {
 
   const caseEmbed = caseMessage.embeds[0];
 
-  // get the discussions, if any
+  // add to the discussions or add the comments field
   if (caseEmbed.fields[2]) {
-    // get any previous comments
-    let discussions = caseEmbed.fields[2].value;
-
-    // remove the field
-    caseEmbed.spliceFields(caseEmbed.fields.indexOf({ name: 'Comments', value: discussions }), 1);
-
-    // add the comment to already existing discussions
-    discussions += `\n${message.author.username}: ${comment}`;
-
-    caseEmbed.addField('Comments', discussions);
+    caseEmbed.fields[2].value += `\n${message.author.username}: ${comment}`
   } else {
     caseEmbed.addField('Comments', `${message.author.username}: ${comment}`);
   }
 
   caseMessage.edit('', caseEmbed);
+  message.delete( {timeout: 0 } );
 }
