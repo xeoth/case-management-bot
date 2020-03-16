@@ -20,11 +20,18 @@ exports.run = async (client, message, args) => {
 
   // fetch the channel with case queue and the message with the provided ID
   const caseChannel = await client.channels.fetch(caseChannelID);
-  const caseMessage = await caseChannel.messages.fetch(caseID);
 
-  // reject if message does not exist
-  if (!caseMessage) return rejectMessage(message, 'Sorry, the message with the provided ID does not exist.');
+  // fetch the message and check whether the message exists 
+  let failedMessage = false;
+  const caseMessage = await caseChannel.messages.fetch(caseID)
+      .catch((e) => {
+        rejectMessage(message, 'Sorry, the case with the provided ID does not exist.');
+        failedMessage = true;
+      });
   
+  // exit the script instead of throwing an error
+  if (failedMessage) return;
+
   // fetch the message in the embed
   const caseEmbed = caseMessage.embeds[0];
 
