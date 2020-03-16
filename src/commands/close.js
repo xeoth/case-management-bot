@@ -53,5 +53,5 @@ exports.run = async (client, message, args) => {
   archiveChannel.send(caseEmbed);
 
   caseMessage.delete( { timeout: 0 });
-  message.delete( {timeout: 0} );
+  message.delete( { timeout: 0 } );
 }
