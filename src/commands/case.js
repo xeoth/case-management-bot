@@ -15,8 +15,8 @@ exports.run = async (client, message, args) => {
   // add the 'http' since it's removed in .split()
   link = 'http' + link;
 
-  // since MessageEmbed values can't be empty, use a placeholder if the user didn't provide any
-  if (!desc) desc = 'No description provided.';
+  // return if no description
+  if (!desc) return message.reply('Sorry, we need a relevant description. Please execute the command again with the description added.\nExample: `!case 1 confirmed in London https://example.com/source`');
  
   // send the message to include the ID in the embed
   // TODO: research whether you can do it after sending
