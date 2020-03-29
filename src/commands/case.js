@@ -32,7 +32,7 @@ exports.run = async (client, message, args) => {
       .setColor('#ff6f00');
     
   // check whether the link isn't really long. if it is, replace it with a friendly message
-  if (link.length > 40) {
+  if (link.length > desc.length) {
     caseEmbed.addField('Relevant link', `[Link exceeded max. characters. Click here to follow.](${link})`);
   } else {
     caseEmbed.addField('Relevant link', link);
